@@ -1586,7 +1586,7 @@
                 </li>
               </ul>
             </article>
-            <article class="card">
+            <article class="card" id="adminCard">
               <h3>📋 운영 체크</h3>
               <div class="admin-grid">
                 <div class="admin">
@@ -1797,7 +1797,11 @@
       }
       makePlaces("day1Places", day1);
       makePlaces("day2Places", day2);
-      document.querySelector("#prepare h2").childNodes[0].nodeValue = "준비물 및 행정사항";
+      const showAdmin = new URLSearchParams(location.search).has("ad");
+      if (!showAdmin) document.getElementById("adminCard")?.remove();
+      document.querySelector("#prepare h2").childNodes[0].nodeValue = showAdmin
+        ? "준비물 및 행정사항"
+        : "준비물";
       const prepareHeads = document.querySelectorAll("#prepare .card>h3");
       if (prepareHeads[0]) prepareHeads[0].textContent = "가. 개별 준비물";
       if (prepareHeads[1]) prepareHeads[1].textContent = "나. 행정사항";
