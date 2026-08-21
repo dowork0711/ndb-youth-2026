@@ -1,0 +1,1818 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#123c34" />
+    <title>2026 신대방동성당 청년연합회 여름캠프</title>
+    <meta
+      name="description"
+      content="2026 신대방동성당 청년연합회 여름캠프 일정, 이동경로, 준비물 및 행정사항 안내"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+      :root {
+        --ink: #17332d;
+        --green: #123c34;
+        --sage: #dfe9dc;
+        --paper: #f7f3e8;
+        --coral: #ec765f;
+        --gold: #e7b951;
+        --line: rgba(23, 51, 45, 0.16);
+        --shadow: 0 18px 44px rgba(27, 50, 44, 0.11);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Pretendard, "Noto Sans KR", sans-serif;
+        line-height: 1.65;
+      }
+      a {
+        color: inherit;
+      }
+      .wrap {
+        width: min(1120px, calc(100% - 36px));
+        margin: auto;
+      }
+      .hero {
+        position: relative;
+        overflow: hidden;
+        background: var(--green);
+        color: #fff;
+        padding: 26px 0 84px;
+      }
+      .hero:after {
+        content: "";
+        position: absolute;
+        right: -7vw;
+        top: -140px;
+        width: 430px;
+        height: 430px;
+        border: 70px solid rgba(231, 185, 81, 0.18);
+        border-radius: 50%;
+      }
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+      }
+      .brand {
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        font-weight: 700;
+      }
+      .navlinks {
+        display: flex;
+        gap: 20px;
+      }
+      .navlinks a {
+        text-decoration: none;
+        font-size: 13px;
+        opacity: 0.85;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 0.7fr;
+        gap: 70px;
+        align-items: end;
+        padding-top: 82px;
+        position: relative;
+        z-index: 1;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: #f2d78f;
+      }
+      .eyebrow:before {
+        content: "";
+        width: 30px;
+        height: 1px;
+        background: currentColor;
+      }
+      .hero h1 {
+        font-family: "Gowun Batang", serif;
+        font-size: clamp(45px, 7vw, 86px);
+        line-height: 1.08;
+        margin: 18px 0 20px;
+        letter-spacing: -0.055em;
+      }
+      .hero h1 span {
+        color: #f2cd72;
+      }
+      .lead {
+        font-size: 18px;
+        max-width: 640px;
+        color: rgba(255, 255, 255, 0.78);
+      }
+      .date-card {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 24px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(8px);
+      }
+      .date-card b {
+        display: block;
+        font-size: 22px;
+        color: #f6d77f;
+      }
+      .date-card small {
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .quick {
+        margin-top: -36px;
+        position: relative;
+        z-index: 4;
+      }
+      .quick-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: white;
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .quick-item {
+        padding: 23px 27px;
+        border-right: 1px solid var(--line);
+      }
+      .quick-item:last-child {
+        border: 0;
+      }
+      .quick-item small {
+        display: block;
+        color: #6f7e79;
+        margin-bottom: 4px;
+      }
+      .quick-item strong {
+        font-size: 17px;
+      }
+      .section {
+        padding: 86px 0;
+      }
+      .section.alt {
+        background: #ebe9dc;
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 30px;
+        margin-bottom: 35px;
+      }
+      .kicker {
+        font-size: 12px;
+        color: var(--coral);
+        font-weight: 800;
+        letter-spacing: 0.16em;
+      }
+      .section h2 {
+        font-family: "Gowun Batang", serif;
+        font-size: clamp(30px, 4vw, 45px);
+        margin: 5px 0 0;
+        line-height: 1.25;
+      }
+      .section-note {
+        max-width: 430px;
+        color: #66746f;
+        font-size: 14px;
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+      }
+      .chip {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 7px 13px;
+        font-size: 13px;
+      }
+      .chip.me {
+        background: var(--green);
+        color: white;
+      }
+      .timeline-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .day {
+        background: #fff;
+        border-radius: 22px;
+        padding: 30px;
+        box-shadow: 0 9px 30px rgba(28, 54, 47, 0.06);
+      }
+      .day-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 18px;
+        margin-bottom: 18px;
+      }
+      .day-label {
+        font-weight: 800;
+        font-size: 21px;
+      }
+      .day-date {
+        font-size: 13px;
+        color: #74817d;
+      }
+      .event {
+        display: grid;
+        grid-template-columns: 88px 1fr;
+        gap: 18px;
+        padding: 13px 0;
+      }
+      .event time {
+        font-variant-numeric: tabular-nums;
+        font-weight: 750;
+        color: var(--coral);
+      }
+      .event p {
+        margin: 0;
+      }
+      .event small {
+        display: block;
+        color: #7a8682;
+        margin-top: 2px;
+      }
+      .mass {
+        margin-top: 15px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        background: #edf2e9;
+        font-size: 13px;
+      }
+      .map-shell {
+        display: grid;
+        grid-template-columns: 1.8fr 0.9fr;
+        min-height: 560px;
+        background: #fff;
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      #map {
+        min-height: 560px;
+        background: #dce6de;
+      }
+      .places {
+        padding: 20px;
+        overflow: auto;
+      }
+      .place {
+        display: grid;
+        grid-template-columns: 35px 1fr;
+        gap: 12px;
+        padding: 15px 4px;
+        border-bottom: 1px solid var(--line);
+        text-decoration: none;
+      }
+      .num {
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--green);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 800;
+      }
+      .place b {
+        display: block;
+      }
+      .place small {
+        display: block;
+        color: #76817e;
+        line-height: 1.45;
+      }
+      .map-note {
+        font-size: 12px;
+        color: #788581;
+        margin: 13px 4px 0;
+      }
+      .leaflet-popup-content {
+        font-family: "SUIT Variable", sans-serif;
+      }
+      .leaflet-control-attribution {
+        font-size: 9px !important;
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 24px;
+      }
+      .card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 28px;
+      }
+      .card h3 {
+        margin: 0 0 18px;
+        font-size: 20px;
+      }
+      .checks {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .checks li {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 10px 0;
+        border-bottom: 1px dashed var(--line);
+      }
+      .checks li:last-child {
+        border: 0;
+      }
+      .box {
+        width: 19px;
+        height: 19px;
+        border: 1.5px solid #8e9a96;
+        border-radius: 5px;
+        flex: none;
+        margin-top: 3px;
+      }
+      .sub {
+        margin: 8px 0 0 31px;
+        padding: 0 0 0 17px;
+        color: #66736f;
+        font-size: 14px;
+      }
+      .status {
+        display: inline-block;
+        margin-left: 7px;
+        padding: 2px 7px;
+        border-radius: 20px;
+        background: #dfefe2;
+        color: #21623f;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .due {
+        color: #b44937;
+        font-weight: 700;
+      }
+      .admin-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .admin {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+      }
+      .admin.wide {
+        grid-column: 1/-1;
+      }
+      .admin h4 {
+        margin: 0 0 8px;
+      }
+      .admin p,
+      .admin ul {
+        margin: 0;
+        font-size: 14px;
+        color: #5f6d68;
+      }
+      .admin ul {
+        padding-left: 18px;
+      }
+      .owner {
+        color: var(--coral);
+        font-weight: 700;
+      }
+      footer {
+        background: #0c2b25;
+        color: rgba(255, 255, 255, 0.72);
+        padding: 48px 0;
+      }
+      .footer-in {
+        display: flex;
+        justify-content: space-between;
+        gap: 25px;
+        align-items: end;
+      }
+      .footer-title {
+        font-family: "Gowun Batang", serif;
+        color: #fff;
+        font-size: 23px;
+      }
+      .print {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 999px;
+        padding: 10px 16px;
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+      }
+      .top-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 0;
+        background: var(--coral);
+        color: #fff;
+        box-shadow: var(--shadow);
+        cursor: pointer;
+      }
+      @media (max-width: 780px) {
+        .navlinks {
+          display: none;
+        }
+        .hero {
+          padding-bottom: 65px;
+        }
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 30px;
+          padding-top: 60px;
+        }
+        .quick-grid,
+        .timeline-grid,
+        .map-shell,
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+        .quick-item {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .section {
+          padding: 64px 0;
+        }
+        .section-head {
+          display: block;
+        }
+        .section-note {
+          margin-top: 14px;
+        }
+        .map-shell {
+          min-height: auto;
+        }
+        #map {
+          min-height: 390px;
+        }
+        .places {
+          max-height: none;
+        }
+        .admin-grid {
+          grid-template-columns: 1fr;
+        }
+        .admin.wide {
+          grid-column: auto;
+        }
+        .footer-in {
+          display: block;
+        }
+        .print {
+          margin-top: 20px;
+        }
+        .event {
+          grid-template-columns: 74px 1fr;
+        }
+        .day {
+          padding: 23px;
+        }
+        .wrap {
+          width: min(100% - 24px, 1120px);
+        }
+      }
+      @media print {
+        .nav,
+        .top-btn,
+        .print {
+          display: none !important;
+        }
+        .hero {
+          padding: 30px 0;
+          color: #000;
+          background: #fff;
+        }
+        .hero:after {
+          display: none;
+        }
+        .hero-grid {
+          padding-top: 20px;
+        }
+        .hero h1 {
+          font-size: 48px;
+        }
+        .date-card {
+          border-color: #999;
+        }
+        .quick {
+          margin: 0;
+        }
+        .section {
+          padding: 30px 0;
+          break-inside: avoid;
+        }
+        .map-shell {
+          box-shadow: none;
+          border: 1px solid #aaa;
+        }
+        .leaflet-control-container {
+          display: none;
+        }
+        .card,
+        .day {
+          box-shadow: none;
+          border: 1px solid #ccc;
+        }
+        footer {
+          display: none;
+        }
+      }
+    </style>
+    <style>
+      /* 문서형 레이아웃 */
+      :root {
+        --ink: #20252b;
+        --green: #234a40;
+        --sage: #edf2ef;
+        --paper: #eef1f3;
+        --coral: #315f87;
+        --gold: #315f87;
+        --line: #d5dbe0;
+        --shadow: 0 2px 10px rgba(26, 37, 47, 0.07);
+      }
+      body {
+        font-family: "SUIT Variable", sans-serif;
+        background: var(--paper);
+        color: var(--ink);
+        line-height: 1.58;
+      }
+      .wrap {
+        width: min(1040px, calc(100% - 36px));
+      }
+      .hero {
+        background: #fff;
+        color: var(--ink);
+        padding: 0;
+        border-top: 6px solid var(--green);
+        border-bottom: 1px solid var(--line);
+      }
+      .hero:after {
+        display: none;
+      }
+      .nav {
+        height: 62px;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand {
+        letter-spacing: 0.03em;
+        color: var(--green);
+      }
+      .navlinks a {
+        opacity: 1;
+        color: #56616a;
+      }
+      .hero-grid {
+        display: block;
+        padding: 46px 0 42px;
+      }
+      .eyebrow {
+        color: #64717a;
+        letter-spacing: 0.08em;
+      }
+      .eyebrow:before {
+        background: #64717a;
+      }
+      .hero h1,
+      .section h2,
+      .footer-title {
+        font-family: "SUIT Variable", sans-serif;
+      }
+      .hero h1 {
+        font-size: clamp(34px, 5vw, 52px);
+        letter-spacing: -0.035em;
+        line-height: 1.25;
+        margin: 12px 0;
+      }
+      .hero h1 br {
+        display: none;
+      }
+      .hero h1 span {
+        color: var(--ink);
+      }
+      .lead {
+        font-size: 16px;
+        max-width: none;
+        color: #66717a;
+        margin: 0;
+      }
+      .date-card {
+        margin-top: 28px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        border: 0;
+        border-radius: 0;
+        border-left: 4px solid var(--green);
+        padding: 12px 18px;
+        background: #f3f6f5;
+        color: var(--ink);
+        backdrop-filter: none;
+      }
+      .date-card small {
+        color: #66717a;
+      }
+      .date-card b {
+        font-size: 18px;
+        color: var(--green);
+      }
+      .quick {
+        margin-top: 26px;
+      }
+      .quick-grid {
+        border-radius: 4px;
+        box-shadow: none;
+        border: 1px solid var(--line);
+      }
+      .quick-item {
+        padding: 18px 22px;
+      }
+      .quick-item small {
+        font-weight: 600;
+      }
+      .quick-item strong {
+        font-size: 15px;
+      }
+      .section {
+        padding: 58px 0;
+      }
+      .section.alt {
+        background: #f8f9fa;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .section-head {
+        margin-bottom: 25px;
+        border-bottom: 2px solid var(--ink);
+        padding-bottom: 14px;
+      }
+      .kicker {
+        color: #68747d;
+        letter-spacing: 0.1em;
+      }
+      .section h2 {
+        font-size: 29px;
+        letter-spacing: -0.025em;
+      }
+      .section-note {
+        color: #68747d;
+      }
+      .chip {
+        border-radius: 3px;
+        padding: 7px 12px;
+      }
+      .chip.me {
+        background: var(--green);
+      }
+      .timeline-grid {
+        gap: 18px;
+      }
+      .day,
+      .card {
+        border-radius: 5px;
+        padding: 25px;
+        box-shadow: none;
+        border: 1px solid var(--line);
+      }
+      .day-label {
+        font-size: 18px;
+      }
+      .event time {
+        color: #315f87;
+      }
+      .mass {
+        border-radius: 3px;
+        border-left: 3px solid var(--green);
+      }
+      .map-shell {
+        border-radius: 5px;
+        box-shadow: none;
+        border: 1px solid var(--line);
+      }
+      .num {
+        border-radius: 3px;
+        background: var(--green);
+      }
+      .two-col {
+        grid-template-columns: 0.72fr 1.28fr;
+        gap: 18px;
+      }
+      .admin {
+        border-radius: 4px;
+        background: #fafbfb;
+      }
+      .status {
+        border-radius: 3px;
+      }
+      .box {
+        border-radius: 3px;
+      }
+      .due {
+        color: #a04436;
+      }
+      .owner {
+        color: #315f87;
+      }
+      footer {
+        background: #26343b;
+        padding: 35px 0;
+      }
+      .footer-title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .print {
+        border-radius: 4px;
+      }
+      .top-btn {
+        border-radius: 4px;
+        background: #315f87;
+      }
+      @media (max-width: 780px) {
+        .hero-grid {
+          padding: 34px 0;
+        }
+        .date-card {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 2px;
+        }
+        .section {
+          padding: 46px 0;
+        }
+        .section-head {
+          display: block;
+        }
+        .two-col {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .hero {
+          border-top: 3px solid #000;
+        }
+        .hero-grid {
+          padding: 20px 0;
+        }
+        .hero h1 {
+          font-size: 32px;
+        }
+        .quick {
+          margin-top: 14px;
+        }
+        .section {
+          padding: 22px 0;
+        }
+        .section.alt {
+          background: #fff;
+        }
+      }
+      .route-block {
+        margin-top: 22px;
+      }
+      .route-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 18px;
+        margin-bottom: 10px;
+      }
+      .route-title h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+      .route-title p {
+        margin: 0;
+        color: #68747d;
+        font-size: 13px;
+      }
+      .route-map,
+      .route-map.local {
+        height: 420px;
+        background: #dce6de;
+      }
+      .route-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin: 12px 0 0;
+        font-size: 12px;
+        color: #59666f;
+      }
+      .route-legend span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .line-key {
+        width: 25px;
+        height: 4px;
+        border-radius: 4px;
+        background: #315f87;
+      }
+      .line-key.day1 {
+        background: #d45d4c;
+      }
+      .line-key.day2 {
+        background: #315f87;
+      }
+      .map-panel {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        background: #fff;
+      }
+      .map-panel .places {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        padding: 0;
+      }
+      .map-panel .place {
+        grid-template-columns: 30px 1fr;
+        padding: 13px;
+        border-right: 1px solid var(--line);
+        border-bottom: 0;
+      }
+      .map-panel .place:last-child {
+        border-right: 0;
+      }
+      .map-panel .place small {
+        font-size: 11px;
+      }
+      .map-panel .map-note {
+        grid-column: 1/-1;
+        margin: 0;
+        padding: 10px 13px;
+        border-top: 1px solid var(--line);
+        background: #fafbfb;
+      }
+      @media (max-width: 780px) {
+        .route-title {
+          display: block;
+        }
+        .route-title p {
+          margin-top: 4px;
+        }
+        .route-map,
+        .route-map.local {
+          height: 330px;
+        }
+        .map-panel .places {
+          grid-template-columns: 1fr;
+        }
+        .map-panel .place {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+      }
+      .route-time {
+        background: #fff !important;
+        border: 1px solid #34444d !important;
+        border-radius: 4px !important;
+        box-shadow: 0 2px 7px rgba(20, 30, 38, 0.18) !important;
+        color: #202a30 !important;
+        font-family: "SUIT Variable", sans-serif !important;
+        font-size: 12px !important;
+        font-weight: 750 !important;
+        padding: 4px 7px !important;
+        white-space: nowrap;
+      }
+      .route-time:before {
+        display: none !important;
+      }
+      body {
+        background: #fff;
+        color: #171a1d;
+        font-size: 15px;
+      }
+      .wrap {
+        width: min(920px, calc(100% - 40px));
+      }
+      .hero {
+        border: 0;
+        background: #fff;
+        padding: 0;
+      }
+      .nav {
+        display: none;
+      }
+      .hero-grid {
+        padding: 42px 0 24px;
+        border-bottom: 3px double #222;
+        text-align: center;
+      }
+      .eyebrow {
+        display: block;
+        color: #555;
+        font-size: 12px;
+      }
+      .eyebrow:before {
+        display: none;
+      }
+      .hero h1 {
+        font-size: 38px;
+        margin: 8px 0 10px;
+      }
+      .lead {
+        font-size: 14px;
+        color: #555;
+        margin: 0;
+      }
+      .date-card {
+        justify-content: center;
+        margin: 18px auto 0;
+        padding: 8px 0 0;
+        border: 0;
+        background: transparent;
+        gap: 12px;
+      }
+      .date-card small:after {
+        content: " |";
+        margin-left: 12px;
+      }
+      .date-card b {
+        color: #111;
+        font-size: 16px;
+      }
+      .date-card span {
+        font-size: 14px;
+      }
+      .quick {
+        margin: 22px 0 0;
+      }
+      .quick .quick-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: min(920px, calc(100% - 40px));
+        margin: 0 auto;
+        border: 1px solid #777;
+      }
+      .quick-item {
+        display: block;
+        width: auto;
+        padding: 12px 16px;
+        border: 0 !important;
+        border-right: 1px solid #aaa !important;
+      }
+      .quick-item:last-child {
+        border-right: 0 !important;
+      }
+      .quick-item small {
+        display: inline;
+        color: #222;
+        font-weight: 750;
+        margin-right: 9px;
+      }
+      .quick-item small:after {
+        content: " : ";
+      }
+      .quick-item strong {
+        font-weight: 500;
+        font-size: 14px;
+      }
+      .section,
+      .section.alt {
+        padding: 46px 0;
+        background: #fff;
+        border: 0;
+      }
+      .section-head {
+        display: block;
+        border: 0;
+        border-bottom: 2px solid #222;
+        padding: 0 0 9px;
+        margin-bottom: 18px;
+      }
+      .kicker {
+        display: none;
+      }
+      .section h2 {
+        font-size: 22px;
+        margin: 0;
+        font-weight: 750;
+      }
+      .section-note {
+        max-width: none;
+        margin: 5px 0 0;
+        color: #555;
+        font-size: 13px;
+      }
+      .section:nth-of-type(2) h2:before {
+        content: "1. ";
+      }
+      .section:nth-of-type(3) h2:before {
+        content: "2. ";
+      }
+      .section:nth-of-type(4) h2:before {
+        content: "3. ";
+      }
+      .section:nth-of-type(5) h2:before {
+        content: "4. ";
+      }
+      .chips {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0;
+        border: 1px solid #888;
+      }
+      .chip {
+        border: 0;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        padding: 9px 12px;
+        text-align: center;
+        font-size: 14px;
+      }
+      .chip:nth-child(5n) {
+        border-right: 0;
+      }
+      .chip:nth-last-child(-n + 5) {
+        border-bottom: 0;
+      }
+      .vehicle-section {
+        margin-top: 28px;
+      }
+      .vehicle-section h3 {
+        margin: 0 0 10px;
+        font-size: 16px;
+      }
+      .vehicle-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border: 1px solid #888;
+      }
+      .vehicle {
+        padding: 16px 18px;
+      }
+      .vehicle + .vehicle {
+        border-left: 1px solid #888;
+      }
+      .vehicle-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 9px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #bbb;
+      }
+      .vehicle-head strong {
+        font-size: 15px;
+      }
+      .driver {
+        font-size: 13px;
+        color: #444;
+      }
+      .riders {
+        margin: 0;
+        padding-left: 18px;
+        columns: 2;
+        column-gap: 24px;
+        font-size: 14px;
+      }
+      .riders li {
+        margin: 3px 0;
+      }
+      .driver-name {
+        font-weight: 750;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .timeline-grid {
+        gap: 14px;
+      }
+      .day,
+      .card {
+        border: 1px solid #777;
+        border-radius: 0;
+        padding: 20px;
+        box-shadow: none;
+      }
+      .day-top {
+        border-color: #777;
+      }
+      .day-label {
+        font-size: 16px;
+      }
+      .event {
+        padding: 9px 0;
+      }
+      .event time {
+        color: #222;
+      }
+      .mass {
+        background: #f5f5f5;
+        border-radius: 0;
+        border-left: 3px solid #555;
+      }
+      .route-block {
+        margin-top: 32px;
+        break-inside: avoid;
+      }
+      .route-title {
+        border-left: 4px solid #333;
+        padding-left: 10px;
+        margin-bottom: 9px;
+      }
+      .route-title h3 {
+        font-size: 16px;
+      }
+      .route-map,
+      .route-map.local {
+        height: 360px;
+      }
+      .map-panel {
+        border-radius: 0;
+        border-color: #777;
+      }
+      .map-panel .place {
+        padding: 10px;
+      }
+      .num {
+        border-radius: 0;
+        background: #333;
+      }
+      .route-legend {
+        margin-top: 8px;
+      }
+      .line-key {
+        border-radius: 0;
+      }
+      .two-col {
+        display: block;
+      }
+      .two-col > .card + .card {
+        margin-top: 18px;
+      }
+      .card h3 {
+        font-size: 17px;
+        margin-bottom: 12px;
+      }
+      .checks {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border: 1px solid #aaa;
+      }
+      .checks li {
+        padding: 11px;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+      }
+      .checks li:nth-child(3n) {
+        border-right: 0;
+      }
+      .checks li:nth-last-child(-n + 3) {
+        border-bottom: 0;
+      }
+      .box {
+        border-radius: 0;
+      }
+      .admin {
+        border-radius: 0;
+        border-color: #aaa;
+        background: #fff;
+      }
+      .status {
+        border-radius: 0;
+      }
+      .admin-grid {
+        gap: 9px;
+      }
+      footer {
+        background: #fff;
+        color: #333;
+        border-top: 1px solid #777;
+        padding: 24px 0 50px;
+      }
+      .footer-title {
+        font-size: 14px;
+        color: #222;
+      }
+      .footer-in {
+        align-items: center;
+      }
+      .print {
+        border: 1px solid #777;
+        border-radius: 0;
+        color: #222;
+        padding: 7px 12px;
+      }
+      .top-btn {
+        display: none;
+      }
+      @media (max-width: 780px) {
+        .wrap {
+          width: min(100% - 24px, 920px);
+        }
+        .hero-grid {
+          padding: 30px 0 20px;
+        }
+        .hero h1 {
+          font-size: 29px;
+        }
+        .date-card {
+          display: block;
+        }
+        .date-card small,
+        .date-card b,
+        .date-card span {
+          display: block;
+        }
+        .date-card small:after {
+          display: none;
+        }
+        .quick .quick-grid {
+          display: block;
+          width: min(100% - 24px, 920px);
+        }
+        .quick-item {
+          width: 100%;
+          border-right: 0 !important;
+          border-bottom: 1px solid #aaa !important;
+        }
+        .quick-item:last-child {
+          border-bottom: 0 !important;
+        }
+        .chips {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .chip:nth-child(5n) {
+          border-right: 1px solid #ccc;
+        }
+        .chip:nth-last-child(-n + 5) {
+          border-bottom: 1px solid #ccc;
+        }
+        .chip:nth-child(3n) {
+          border-right: 0;
+        }
+        .chip:nth-last-child(-n + 3) {
+          border-bottom: 0;
+        }
+        .vehicle-grid {
+          grid-template-columns: 1fr;
+        }
+        .vehicle + .vehicle {
+          border-left: 0;
+          border-top: 1px solid #888;
+        }
+        .timeline-grid {
+          grid-template-columns: 1fr;
+        }
+        .checks {
+          grid-template-columns: 1fr;
+        }
+        .checks li {
+          border-right: 0;
+          border-bottom: 1px solid #ccc;
+        }
+        .checks li:last-child {
+          border-bottom: 0;
+        }
+        .route-map,
+        .route-map.local {
+          height: 330px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <div class="wrap">
+        <nav class="nav">
+          <div class="brand">신대방동성당 청년연합회</div>
+          <div class="navlinks">
+            <a href="#schedule">일정</a><a href="#route">이동경로</a><a href="#prepare">준비사항</a>
+          </div>
+        </nav>
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">2026년 행사 안내</div>
+            <h1>청년연합회 여름캠프 안내</h1>
+            <p class="lead">
+              아래와 같이 2026년 청년연합회 여름캠프를 진행하오니 일정과 준비사항을 확인해 주시기
+              바랍니다.
+            </p>
+          </div>
+          <div class="date-card">
+            <small>토요일 출발 · 주일 미사 포함</small><b>2026. 8. 22. ~ 8. 23.</b
+            ><span>1박 2일간</span>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="quick">
+        <div class="wrap quick-grid">
+          <div class="quick-item">
+            <small>집합</small><strong>8월 22일 10:30 · 성당 1층</strong>
+          </div>
+          <div class="quick-item"><small>참가</small><strong>14명</strong></div>
+          <div class="quick-item">
+            <small>전체 일정</small><strong>22일 11:00 ~ 23일 19:00</strong>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">PARTICIPANTS</div>
+              <h2>참가자 명단</h2>
+            </div>
+            <p class="section-note">총 14명 · 김상민, 노재하는 숙소에 먼저 도착</p>
+          </div>
+          <div class="chips">
+            <span class="chip me">김상민 · 숙소 先도착</span><span class="chip">김정민</span
+            ><span class="chip">김형주</span><span class="chip me">노재하 · 숙소 先도착</span
+            ><span class="chip">노진혁</span><span class="chip">양승호</span
+            ><span class="chip">오나호</span><span class="chip">우지현</span
+            ><span class="chip">이미연</span><span class="chip">이인준</span
+            ><span class="chip">조민식</span><span class="chip">최정우</span
+            ><span class="chip">최지훈</span><span class="chip">황두일</span>
+          </div>
+          <div class="vehicle-section">
+            <h3>차량별 탑승 명단</h3>
+            <div class="vehicle-grid">
+              <div class="vehicle">
+                <div class="vehicle-head">
+                  <strong>1호차 · 6명</strong
+                  ><span class="driver">운전자 <span class="driver-name">노진혁</span></span>
+                </div>
+                <ol class="riders">
+                  <li>노진혁</li>
+                  <li>이인준(선탑)</li>
+                  <li>최정우</li>
+                  <li>조민식</li>
+                  <li>김형주</li>
+                  <li>양승호</li>
+                </ol>
+              </div>
+              <div class="vehicle">
+                <div class="vehicle-head">
+                  <strong>2호차 · 6명</strong
+                  ><span class="driver">운전자 <span class="driver-name">오나호</span></span>
+                </div>
+                <ol class="riders">
+                  <li>오나호</li>
+                  <li>황두일(선탑)</li>
+                  <li>최지훈</li>
+                  <li>우지현</li>
+                  <li>이미연</li>
+                  <li>김정민</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section alt" id="schedule">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">SCHEDULE</div>
+              <h2>1박 2일 시간계획</h2>
+            </div>
+            <p class="section-note">
+              도로 및 현장 상황에 따라 시간은 달라질 수 있습니다. 다음 이동 10분 전에는 준비를 마쳐
+              주세요.
+            </p>
+          </div>
+          <div class="timeline-grid">
+            <article class="day">
+              <div class="day-top">
+                <span class="day-label">DAY 01</span><span class="day-date">8월 22일 토요일</span>
+              </div>
+              <div class="event">
+                <time>10:30</time>
+                <p>성당 1층 집합<small>주임신부님께 인사 및 인원점검</small></p>
+              </div>
+              <div class="event">
+                <time>11:00~12:00</time>
+                <p>점심식사<small>성대골</small></p>
+              </div>
+              <div class="event">
+                <time>12:30</time>
+                <p>물놀이 장소로 출발</p>
+              </div>
+              <div class="event">
+                <time>14:00~14:30</time>
+                <p>물놀이 장소 도착 예정</p>
+              </div>
+              <div class="event">
+                <time>17:00</time>
+                <p>시설 이용 종료 및 집합<small>인원점검 후 숙소 이동</small></p>
+              </div>
+              <div class="event">
+                <time>18:00</time>
+                <p>숙소 도착·휴식<small>일부 인원은 물품 구매</small></p>
+              </div>
+              <div class="event">
+                <time>19:00</time>
+                <p>석식</p>
+              </div>
+            </article>
+            <article class="day">
+              <div class="day-top">
+                <span class="day-label">DAY 02</span><span class="day-date">8월 23일 주일</span>
+              </div>
+              <div class="event">
+                <time>~11:30</time>
+                <p>정리정돈 및 퇴실</p>
+              </div>
+              <div class="event">
+                <time>~12:30</time>
+                <p>점심 장소로 이동<small>퇴촌순두부 · 정영로 936</small></p>
+              </div>
+              <div class="event">
+                <time>~13:00</time>
+                <p>점심 완료 및 카페 이동</p>
+              </div>
+              <div class="event">
+                <time>~14:00</time>
+                <p>다과 및 성당 이동 준비</p>
+              </div>
+              <div class="event">
+                <time>~16:30</time>
+                <p>성당 복귀</p>
+              </div>
+              <div class="mass">
+                ⛪ 복귀 후 주일 미사를 포함하여 전체 일정은 19:00 종료 예정입니다.
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="route">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">ROUTE MAP</div>
+              <h2>이동경로 및 주요 장소</h2>
+            </div>
+            <p class="section-note">
+              이동시간 및 루트는 도로 상황에 따라 변동될 수 있습니다.
+            </p>
+          </div>
+          <div class="route-block">
+            <div class="route-title">
+              <h3>성당 → 물놀이 장소</h3>
+              <p>1일차 장거리 이동 구간</p>
+            </div>
+            <div class="map-panel">
+              <div
+                id="outboundMap"
+                class="route-map"
+                aria-label="성당에서 물놀이 장소까지 이동 지도"
+              ></div>
+            </div>
+            <div class="route-legend">
+              <span><i class="line-key"></i>성당 출발 → 물놀이 장소 도착</span>
+            </div>
+          </div>
+          <div class="route-block">
+            <div class="route-title">
+              <h3>1일차 양평 인근 이동</h3>
+              <p>8월 22일 토요일</p>
+            </div>
+            <div class="map-panel">
+              <div
+                id="day1Map"
+                class="route-map local"
+                aria-label="1일차 양평 인근 이동 지도"
+              ></div>
+              <div class="places" id="day1Places"></div>
+            </div>
+            <div class="route-legend">
+              <span><i class="line-key day1"></i>물놀이 장소 → 숙소 → 물품구매처</span>
+            </div>
+          </div>
+          <div class="route-block">
+            <div class="route-title">
+              <h3>2일차 양평·퇴촌 이동</h3>
+              <p>8월 23일 주일</p>
+            </div>
+            <div class="map-panel">
+              <div
+                id="day2Map"
+                class="route-map local"
+                aria-label="2일차 양평과 퇴촌 이동 지도"
+              ></div>
+              <div class="places" id="day2Places"></div>
+            </div>
+            <div class="route-legend">
+              <span><i class="line-key day2"></i>숙소 → 중식 장소 → 카페</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section alt" id="prepare">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">CHECKLIST</div>
+              <h2>준비물 & 행정사항</h2>
+            </div>
+          </div>
+          <div class="two-col">
+            <article class="card">
+              <h3>🎒 개별 준비물</h3>
+              <ul class="checks" data-list="personal">
+                <li>
+                  <button class="box" aria-label="세면도구 체크"></button><span>세면도구</span>
+                </li>
+                <li>
+                  <button class="box" aria-label="화장품 체크"></button
+                  ><span>화장품<small> · 선크림 등</small></span>
+                </li>
+                <li>
+                  <button class="box" aria-label="수건 체크"></button
+                  ><span>수건<small> · 양일간 사용할 충분한 분량</small></span>
+                </li>
+                <li>
+                  <button class="box" aria-label="여벌옷 체크"></button
+                  ><span>여벌옷<small> · 물놀이 후 갈아입을 옷 포함</small></span>
+                </li>
+                <li>
+                  <button class="box" aria-label="신발 체크"></button
+                  ><span>신발<small> · 물놀이용 포함</small></span>
+                </li>
+                <li>
+                  <button class="box" aria-label="상비약 체크"></button><span>개인 상비약품</span>
+                </li>
+                <li>
+                  <button class="box" aria-label="수영복 체크"></button
+                  ><span>수영복<small>(필요시)</small></span>
+                </li>
+                <li>
+                  <button class="box" aria-label="우산·우비 체크"></button
+                  ><span>우산·우비<small> · 우천 대비</small></span>
+                </li>
+                <li>
+                  <button class="box" aria-label="벌레기피제 체크"></button><span>벌레기피제<small>(필요시)</small></span>
+                </li>
+              </ul>
+            </article>
+            <article class="card">
+              <h3>📋 운영 체크</h3>
+              <div class="admin-grid">
+                <div class="admin">
+                  <h4>예약·보험</h4>
+                  <ul>
+                    <li>물놀이 예약 확인서 <span class="status">8/21 완료</span></li>
+                    <li>여행자보험 가입 <span class="status">8/19 완료</span></li>
+                    <li>개인별 증서·증권 송부 <span class="due">8/21한</span></li>
+                  </ul>
+                </div>
+                <div class="admin">
+                  <h4>차량</h4>
+                  <ul>
+                    <li>쏘카 카니발 9인승 <span class="status">전표 확보</span></li>
+                    <li>롯데렌터카 카니발 9인승 <span class="status">전표 확보</span></li>
+                    <li>추후 비용 청구</li>
+                  </ul>
+                </div>
+                <div class="admin">
+                  <h4>시설·비품 협조</h4>
+                  <ul>
+                    <li>테이블 2개 <span class="owner">황두일</span>(구역장님, 반장님께 각 1개씩 대여)</li>
+                    <li>의자 14개 <span class="owner">김상민</span>(청소년분과장님께 대여)</li>
+                  </ul>
+                </div>
+                <div class="admin">
+                  <h4>식사 예약</h4>
+                  <ul>
+                    <li>성대골 <span class="owner">이인준</span> · 8/20 확정</li>
+                    <li>퇴촌순두부 <span class="owner">김상민</span> · 8/20 확정</li>
+                    <li>2일차 카페 자리 예약 여부 확인</li>
+                  </ul>
+                </div>
+                <div class="admin wide">
+                  <h4>당일 구매 · 신선식품 원칙</h4>
+                  <p>육류 및 육가공식품 · 채소·과일 · 주류 및 음료 · 부탄가스 · 과자류</p>
+                </div>
+                <div class="admin wide">
+                  <h4>전일 구매</h4>
+                  <p>
+                    가스토치 · 그릴 · 일회용기·수저 · 종량제봉투(일반·음식물) · 유탕처리식품
+                    일부(라면 등) · 운전자 숙취해소제(약국) · 상비약(연고, 반창고, 진통제, 소독약,
+                    파스) · 스케치북 3권 · 유성매직
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      const church = {
+        n: 1,
+        name: "신대방동성당",
+        address: "서울 동작구 신대방동",
+        q: "신대방동성당",
+        pos: [37.4878, 126.9137],
+      };
+      const localStops = [
+        {
+          n: 1,
+          name: "물놀이 장소",
+          address: "양평군 무드리2길 41-10",
+          type: "1일차 활동",
+          q: "경기도 양평군 무드리2길 41-10",
+          pos: [37.53, 127.44],
+        },
+        {
+          n: 2,
+          name: "캠프 숙소",
+          address: "양평군 강하면 운포2길 13-28",
+          type: "숙소",
+          q: "경기도 양평군 강하면 운포2길 13-28",
+          pos: [37.5, 127.41],
+        },
+        {
+          n: 3,
+          name: "하나로마트 강하점",
+          address: "양평군 강하면 운심길 96",
+          type: "물품 구매",
+          q: "양평농협 하나로마트 강하점",
+          pos: [37.495, 127.41],
+        },
+        {
+          n: 4,
+          name: "퇴촌순두부",
+          address: "광주시 퇴촌면 정영로 936",
+          type: "2일차 중식",
+          q: "퇴촌순두부 경기도 광주시 정영로 936",
+          pos: [37.473, 127.315],
+        },
+        {
+          n: 5,
+          name: "2일차 카페",
+          address: "광주시 정영로 946-8",
+          type: "다과",
+          q: "경기도 광주시 정영로 946-8",
+          pos: [37.4735, 127.316],
+        },
+      ];
+      const water = localStops[0];
+      const tile = (m) =>
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+          attribution: "© OpenStreetMap",
+        }).addTo(m);
+      const markerIcon = (n, color = "#234a40") =>
+        L.divIcon({
+          className: "",
+          html: `<div style="width:32px;height:32px;border-radius:4px;display:grid;place-items:center;background:${color};color:white;border:2px solid white;box-shadow:0 3px 10px #0004;font:700 12px 'SUIT Variable',sans-serif">${n}</div>`,
+          iconSize: [32, 32],
+          iconAnchor: [16, 16],
+        });
+      const outbound = L.map("outboundMap", { scrollWheelZoom: false });
+      tile(outbound);
+      L.marker(church.pos, { icon: markerIcon(1) })
+        .addTo(outbound)
+        .bindPopup(`<b>${church.name}</b><br>출발`);
+      L.marker(water.pos, { icon: markerIcon(2, "#d45d4c") })
+        .addTo(outbound)
+        .bindPopup(`<b>${water.name}</b><br>${water.address}`);
+      outbound.fitBounds([church.pos, water.pos], { padding: [55, 55] });
+      const day1 = [localStops[0], localStops[1], localStops[2]],
+        day2 = [localStops[1], localStops[3], localStops[4]];
+      const durationText = (seconds) => {
+        const minutes = Math.max(1, Math.round(seconds / 60));
+        if (minutes < 60) return `약 ${minutes}분`;
+        const h = Math.floor(minutes / 60),
+          m = minutes % 60;
+        return m ? `약 ${h}시간 ${m}분` : `약 ${h}시간`;
+      };
+      async function roadRoute(map, stops, color, fit = false) {
+        if (!map.getPane("routeLabels")) {
+          const pane = map.createPane("routeLabels");
+          pane.style.zIndex = 590;
+          pane.style.pointerEvents = "none";
+        }
+        const bounds = L.latLngBounds(stops.map((s) => s.pos));
+        for (let i = 0; i < stops.length - 1; i++) {
+          const from = stops[i],
+            to = stops[i + 1];
+          const coords = `${from.pos[1]},${from.pos[0]};${to.pos[1]},${to.pos[0]}`;
+          const url = `https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson&steps=false`;
+          try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error("route");
+            const data = await response.json();
+            if (!data.routes?.[0]) throw new Error("route");
+            const route = data.routes[0],
+              line = L.geoJSON(route.geometry, {
+                style: { color, weight: 5, opacity: 0.92, lineCap: "round", lineJoin: "round" },
+              }).addTo(map);
+            bounds.extend(line.getBounds());
+            const path = route.geometry.coordinates,
+              mid = path[Math.floor(path.length / 2)];
+            L.tooltip({
+              permanent: true,
+              direction: "top",
+              offset: [0, -14],
+              pane: "routeLabels",
+              className: "route-time",
+              interactive: false,
+            })
+              .setLatLng([mid[1], mid[0]])
+              .setContent(durationText(route.duration))
+              .addTo(map);
+          } catch (error) {}
+        }
+        if (fit) map.fitBounds(bounds, { padding: [45, 45] });
+      }
+      roadRoute(outbound, [church, water], "#315f87", true);
+      function makeDayMap(id, stops, color, center, zoom) {
+        const map = L.map(id, { scrollWheelZoom: false, zoomSnap: 0.25 }).setView(center, zoom);
+        tile(map);
+        stops.forEach((s, i) =>
+          L.marker(s.pos, { icon: markerIcon(i + 1) })
+            .addTo(map)
+            .bindPopup(`<b>${s.name}</b><br>${s.address}`),
+        );
+        roadRoute(map, stops, color);
+        return map;
+      }
+      makeDayMap("day1Map", day1, "#d45d4c", [37.512, 127.423], 13);
+      makeDayMap("day2Map", day2, "#315f87", [37.487, 127.362], 12.5);
+      function makePlaces(id, stops) {
+        const list = document.querySelector("#" + id);
+        stops.forEach((s, i) => {
+          const a = document.createElement("a");
+          a.className = "place";
+          a.href = "https://map.kakao.com/link/search/" + encodeURIComponent(s.q);
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.innerHTML = `<span class="num">${i + 1}</span><span><b>${s.name}</b><small>${s.type} · ${s.address}</small></span>`;
+          list.appendChild(a);
+        });
+        const note = document.createElement("p");
+        note.className = "map-note";
+        note.textContent =
+          "※ 경로선의 시간은 일반적인 차량 주행 예상시간입니다. 당일 교통상황과 내비게이션 안내에 따라 달라질 수 있습니다.";
+        list.appendChild(note);
+      }
+      makePlaces("day1Places", day1);
+      makePlaces("day2Places", day2);
+      document.querySelector("#prepare h2").childNodes[0].nodeValue = "준비물 및 행정사항";
+      const prepareHeads = document.querySelectorAll("#prepare .card>h3");
+      if (prepareHeads[0]) prepareHeads[0].textContent = "가. 개별 준비물";
+      if (prepareHeads[1]) prepareHeads[1].textContent = "나. 행정사항";
+      document.querySelector(".footer-title").textContent = "신대방동성당 청년연합회";
+      document.querySelectorAll(".checks .box").forEach((b, i) => {
+        const key = "camp-check-" + i;
+        if (localStorage.getItem(key) === "1") {
+          b.textContent = "✓";
+          b.style.background = "#123c34";
+          b.style.color = "white";
+        }
+        b.onclick = () => {
+          const on = b.textContent === "✓";
+          b.textContent = on ? "" : "✓";
+          b.style.background = on ? "transparent" : "#123c34";
+          b.style.color = on ? "inherit" : "white";
+          localStorage.setItem(key, on ? "0" : "1");
+        };
+      });
+    </script>
+  </body>
+</html>
