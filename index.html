@@ -1484,9 +1484,7 @@
               <div class="kicker">ROUTE MAP</div>
               <h2>이동경로 및 주요 장소</h2>
             </div>
-            <p class="section-note">
-              이동시간 및 루트는 도로 상황에 따라 변동될 수 있습니다.
-            </p>
+            <p class="section-note">이동시간 및 루트는 도로 상황에 따라 변동될 수 있습니다.</p>
           </div>
           <div class="route-block">
             <div class="route-title">
@@ -1583,7 +1581,8 @@
                   ><span>우산·우비<small> · 우천 대비</small></span>
                 </li>
                 <li>
-                  <button class="box" aria-label="벌레기피제 체크"></button><span>벌레기피제<small>(필요시)</small></span>
+                  <button class="box" aria-label="벌레기피제 체크"></button
+                  ><span>벌레기피제<small>(필요시)</small></span>
                 </li>
               </ul>
             </article>
@@ -1609,7 +1608,9 @@
                 <div class="admin">
                   <h4>시설·비품 협조</h4>
                   <ul>
-                    <li>테이블 2개 <span class="owner">황두일</span>(구역장님, 반장님께 각 1개씩 대여)</li>
+                    <li>
+                      테이블 2개 <span class="owner">황두일</span>(구역장님, 반장님께 각 1개씩 대여)
+                    </li>
                     <li>의자 14개 <span class="owner">김상민</span>(청소년분과장님께 대여)</li>
                   </ul>
                 </div>
@@ -1646,8 +1647,10 @@
         name: "신대방동성당",
         address: "서울 동작구 신대방동",
         q: "신대방동성당",
-        pos: [37.4878, 126.9137],
+        pos: [37.4956, 126.9265],
       };
+      // 좌표는 OpenStreetMap 지오코딩 기준. 정영로 936/946-8(퇴촌순두부·카페)은
+      // 도로명 단위까지만 확인되어 실제 위치와 다소 오차가 있을 수 있음.
       const localStops = [
         {
           n: 1,
@@ -1655,7 +1658,7 @@
           address: "양평군 무드리2길 41-10",
           type: "1일차 활동",
           q: "경기도 양평군 무드리2길 41-10",
-          pos: [37.53, 127.44],
+          pos: [37.647, 127.3747],
         },
         {
           n: 2,
@@ -1663,7 +1666,7 @@
           address: "양평군 강하면 운포2길 13-28",
           type: "숙소",
           q: "경기도 양평군 강하면 운포2길 13-28",
-          pos: [37.5, 127.41],
+          pos: [37.4899, 127.3907],
         },
         {
           n: 3,
@@ -1671,7 +1674,7 @@
           address: "양평군 강하면 운심길 96",
           type: "물품 구매",
           q: "양평농협 하나로마트 강하점",
-          pos: [37.495, 127.41],
+          pos: [37.4959, 127.4103],
         },
         {
           n: 4,
@@ -1679,7 +1682,7 @@
           address: "광주시 퇴촌면 정영로 936",
           type: "2일차 중식",
           q: "퇴촌순두부 경기도 광주시 정영로 936",
-          pos: [37.473, 127.315],
+          pos: [37.475, 127.38],
         },
         {
           n: 5,
@@ -1687,7 +1690,7 @@
           address: "광주시 정영로 946-8",
           type: "다과",
           q: "경기도 광주시 정영로 946-8",
-          pos: [37.4735, 127.316],
+          pos: [37.4755, 127.3805],
         },
       ];
       const water = localStops[0];
@@ -1761,19 +1764,20 @@
         if (fit) map.fitBounds(bounds, { padding: [45, 45] });
       }
       roadRoute(outbound, [church, water], "#315f87", true);
-      function makeDayMap(id, stops, color, center, zoom) {
-        const map = L.map(id, { scrollWheelZoom: false, zoomSnap: 0.25 }).setView(center, zoom);
+      function makeDayMap(id, stops, color) {
+        const map = L.map(id, { scrollWheelZoom: false, zoomSnap: 0.25 });
         tile(map);
         stops.forEach((s, i) =>
           L.marker(s.pos, { icon: markerIcon(i + 1) })
             .addTo(map)
             .bindPopup(`<b>${s.name}</b><br>${s.address}`),
         );
-        roadRoute(map, stops, color);
+        map.fitBounds(L.latLngBounds(stops.map((s) => s.pos)), { padding: [45, 45] });
+        roadRoute(map, stops, color, true);
         return map;
       }
-      makeDayMap("day1Map", day1, "#d45d4c", [37.512, 127.423], 13);
-      makeDayMap("day2Map", day2, "#315f87", [37.487, 127.362], 12.5);
+      makeDayMap("day1Map", day1, "#d45d4c");
+      makeDayMap("day2Map", day2, "#315f87");
       function makePlaces(id, stops) {
         const list = document.querySelector("#" + id);
         stops.forEach((s, i) => {
