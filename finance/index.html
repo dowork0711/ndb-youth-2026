@@ -430,7 +430,7 @@
       font-size: 13px;
       text-align: center;
     }
-    .hidden-row { display: none; }
+    .hidden-row { display: none !important; }
 
     @media (max-width: 900px) {
       .summary-grid { grid-template-columns: 1fr; }
@@ -641,6 +641,8 @@
     th, td { padding: 14px 15px; }
     th { color: #626b66; letter-spacing: .01em; }
     tbody tr:hover { background: #f8f9f7; }
+    .expense-section table th:nth-child(5),
+    .expense-section table td:nth-child(5) { display: none !important; }
     .tag {
       min-height: 25px;
       padding: 3px 8px;
@@ -747,6 +749,89 @@
       .pill:first-child { padding-left: 0; }
       .section { padding: 24px 16px; border-radius: 4px; }
       .responsive-table tr { border-radius: 4px; }
+      .expense-section .responsive-table tbody { gap: 9px; }
+      .expense-section .responsive-table tr {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+          "category amount"
+          "vendor vendor"
+          "detail detail"
+          "receipt receipt";
+        gap: 0 12px;
+        padding: 14px;
+        border: 1px solid #dfe3df;
+        border-left: 3px solid #596d63;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(34, 62, 52, .05);
+      }
+      .expense-section .responsive-table td {
+        display: block;
+        width: auto;
+        padding: 0;
+        border: 0;
+        font-size: 12.5px;
+        line-height: 1.45;
+        text-align: left;
+      }
+      .expense-section .responsive-table td::before { display: none; }
+      .expense-section .responsive-table td:nth-child(2) {
+        grid-area: category;
+        align-self: start;
+      }
+      .expense-section .responsive-table td:nth-child(3) {
+        grid-area: vendor;
+        margin-top: 13px;
+        color: #27302b;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+      .expense-section .responsive-table td:nth-child(4) {
+        grid-area: detail;
+        margin-top: 3px;
+        color: #737c77;
+      }
+      .expense-section .responsive-table td:nth-child(6) {
+        margin-top: 11px;
+        padding-top: 9px;
+        border-top: 1px solid #ecefeb;
+        color: #515b56;
+        font-size: 11.5px;
+      }
+      .expense-section .responsive-table td:nth-child(6) {
+        grid-area: receipt;
+        text-align: right;
+      }
+      .expense-section .responsive-table td:nth-child(6)::before {
+        display: inline;
+        margin-right: 6px;
+        color: #929a95;
+        font-size: 10px;
+        font-weight: 700;
+        content: attr(data-label);
+      }
+      .expense-section .responsive-table td:nth-child(7) {
+        grid-area: amount;
+        align-self: center;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        color: #26352f;
+        font-size: 16px;
+        font-weight: 900;
+        text-align: right;
+      }
+      .expense-section .tag {
+        min-height: 24px;
+        padding: 3px 7px;
+        border: 0;
+        border-radius: 3px;
+        color: #42584e;
+        background: #edf2ef;
+        font-size: 10.5px;
+      }
+      .expense-section .receipt { font-size: 11.5px; }
       .expense-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .expense-summary-item:last-child { grid-column: 1 / -1; }
       .filter-row { grid-template-columns: 1fr; align-items: start; gap: 8px; }
@@ -960,6 +1045,7 @@
           rows.forEach((row) => {
             const matches = selected === '전체' || row.dataset.category === selected;
             row.classList.toggle('hidden-row', !matches);
+            row.hidden = !matches;
             if (matches) visible += 1;
           });
           status.textContent = `${selected} ${visible}건`;
