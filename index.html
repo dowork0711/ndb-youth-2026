@@ -1678,6 +1678,12 @@
     </main>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
+      const path = location.pathname;
+
+      if (path === "/") {
+        location.href = '/pilgrimage'
+      }
+
       const church = {
         n: 1,
         name: "신대방동성당",
